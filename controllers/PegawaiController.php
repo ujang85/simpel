@@ -27,7 +27,7 @@ class PegawaiController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
-                    'bulk-delete' => ['post'],
+                //    'bulk-delete' => ['post'],
                 ],
             ],
         ];
@@ -290,29 +290,7 @@ class PegawaiController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionBulkDelete()
-    {        
-        $request = Yii::$app->request;
-        $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
-        foreach ( $pks as $pk ) {
-            $model = $this->findModel($pk);
-            $model->delete();
-        }
-
-        if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['forceClose'=>true,'forceReload'=>'#crud-datatable-pjax'];
-        }else{
-            /*
-            *   Process for non-ajax request
-            */
-            return $this->redirect(['index']);
-        }
-       
-    }
+    
 
     /**
      * Finds the Pegawai model based on its primary key value.
